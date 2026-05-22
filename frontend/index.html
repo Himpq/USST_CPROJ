@@ -81,6 +81,22 @@ tr:hover td { background: #f8faff; }
     </div>
   </div>
 
+  <div class="toolbar" style="margin-top:8px">
+    <div class="filter-group" id="dateRangeGroup">
+      <button class="filter-btn active" data-range="day" onclick="setDateRange('day')">今天</button>
+      <button class="filter-btn" data-range="week" onclick="setDateRange('week')">近7天</button>
+      <button class="filter-btn" data-range="month" onclick="setDateRange('month')">近30天</button>
+      <button class="filter-btn" data-range="custom" onclick="setDateRange('custom')">自定义</button>
+    </div>
+    <div id="customDateRange" style="display:none;gap:8px;align-items:center">
+      <input type="date" id="startDate">
+      <span>至</span>
+      <input type="date" id="endDate">
+      <button style="padding:6px 16px;border:1px solid #1a73e8;border-radius:20px;background:#1a73e8;color:#fff;cursor:pointer;font-size:13px" onclick="applyCustomRange()">查询</button>
+    </div>
+  </div>
+  </div>
+
   <table>
     <thead><tr><th>日期</th><th>类型</th><th>金额</th><th>用户</th><th>分类</th><th>备注</th></tr></thead>
     <tbody id="recordsBody"></tbody>

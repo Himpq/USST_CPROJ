@@ -79,26 +79,6 @@ namespace API {
         strcpy(buff, out.c_str());
     }
 
-    void get_by_user (HEADER& rqHeader, HEADER& rdHeader, char* buff) {
-        std::string QUERY = rqHeader.QUERY;
-        // /api/get_by_user?user=xxx
-
-        std::string user = get_param(QUERY, "user");
-        if (user.empty()) {
-            strcpy(buff, "Parameter is empty");
-            return;
-        }
-
-        std::string out;
-        DATA::get_by_user(user, out);
-        if (out.empty()) {
-            strcpy(buff, "No data for this user");
-            return;
-        }
-
-        strcpy(buff, out.c_str());
-    }
-
     void return_file_content (HEADER& rqHeader, HEADER& rdHeader, char* buff) {
         std::string path = "frontend/static/myjs.js";
         FILE* f = fopen(path.c_str(), "rb");
@@ -121,7 +101,6 @@ namespace API {
         {"GET", "/api/test", debug_test},
         {"GET", "/api/write", write},
         {"GET", "/api/get_by_date", get_by_date},
-        {"GET", "/api/get_by_user", get_by_user},
         {"GET", "/static/myjs.js", return_file_content},
     };
 

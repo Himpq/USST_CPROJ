@@ -26,6 +26,15 @@ namespace DATA {
         return path;
     }
 
+    std::string getPathByDate(std::string date) {
+        std::string path = PATH;
+        size_t pos = path.find("{date}");
+        if (pos != std::string::npos) {
+            path.replace(pos, 6, date);
+        }
+        return path;
+    }
+
 
     void ensureDataDir() {
         FILE* f = fopen("data", "r");
@@ -52,33 +61,13 @@ namespace DATA {
     }
 
     std::string get_by_date(std::string date, std::string& out) {
-        std::string path = PATH;
-        size_t pos = path.find("{date}");
-        if (pos != std::string::npos) {
-            path.replace(pos, 6, date);
-        }
+        std::string path = getPathByDate(date);
 
         FILE* f = fopen(path.c_str(), "r");
         if (f) {
             char line[1024];
             while (fgets(line, sizeof(line), f)) {
                 out += line;
-            }
-            fclose(f);
-        }
-        return out;
-    }
-
-    std::string get_by_user(std::string user, std::string& out) {
-        std::string path = getPath();
-        FILE* f = fopen(path.c_str(), "r");
-        if (f) {
-            char line[1024];
-            while (fgets(line, sizeof(line), f)) {
-                std::string str_line(line);
-                if (str_line.find(user + ",") == 0) {
-                    out += line;
-                }
             }
             fclose(f);
         }
